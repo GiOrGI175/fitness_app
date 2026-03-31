@@ -1,7 +1,9 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -30,7 +32,10 @@ export default function Index() {
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 0.8 }}
       >
-        <View className='items-center'>
+        <Animated.View
+          entering={FadeInDown.delay(100).springify()}
+          className='items-center'
+        >
           <Text
             style={{ fontSize: hp(5) }}
             className='text-white font-bold tracking-wide'
@@ -43,19 +48,23 @@ export default function Index() {
           >
             For you
           </Text>
-        </View>
+        </Animated.View>
 
-        <TouchableOpacity
-          style={{ height: hp(7), width: wp(80) }}
-          className='bg-rose-500 items-center justify-center rounded-full border-2 border-neutral-200'
-        >
-          <Text
-            style={{ fontSize: hp(3) }}
-            className='text-white font-bold tracking-widest'
-          >
-            Get Started
-          </Text>
-        </TouchableOpacity>
+        <Animated.View entering={FadeInDown.delay(100).springify()}>
+          <Link href='/home' asChild>
+            <TouchableOpacity
+              style={{ height: hp(7), width: wp(80) }}
+              className='bg-rose-500 items-center justify-center rounded-full border-2 border-neutral-200'
+            >
+              <Text
+                style={{ fontSize: hp(3) }}
+                className='text-white font-bold tracking-widest'
+              >
+                Get Started
+              </Text>
+            </TouchableOpacity>
+          </Link>
+        </Animated.View>
       </LinearGradient>
     </View>
   );
