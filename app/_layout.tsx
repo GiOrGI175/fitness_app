@@ -7,6 +7,13 @@ export default function RootLayout() {
       screenOptions={{
         headerShown: false,
       }}
-    />
+    >
+      <Stack.Screen
+        name='exercises/[id]'
+        options={{
+          presentation: 'fullScreenModal',
+        }}
+      />
+    </Stack>
   );
 }

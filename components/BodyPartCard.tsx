@@ -24,7 +24,13 @@ type Props = {
 
 export default function BodyPartCard({ item, index }: Props) {
   return (
-    <Link href={`/exercises/${item.name}`} asChild>
+    <Link
+      href={{
+        pathname: '/exercises/[id]',
+        params: { id: item.name },
+      }}
+      asChild
+    >
       <TouchableOpacity
         style={{ width: wp(44), height: wp(52) }}
         className='flex justify-end p-4 mb-4'
