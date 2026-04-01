@@ -1,3 +1,4 @@
+import BodyParst from '@/components/BodyParst';
 import ImageSlider from '@/components/ImageSlider';
 import { Image } from 'expo-image';
 import { StatusBar } from 'expo-status-bar';
@@ -46,6 +47,10 @@ export default function Home() {
 
       <View>
         <ImageSlider />
+      </View>
+
+      <View className='flex-1'>
+        <BodyParst />
       </View>
     </SafeAreaView>
   );
