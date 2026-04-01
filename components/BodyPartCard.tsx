@@ -1,12 +1,11 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import React from 'react';
 import {
   Image,
   ImageSourcePropType,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import {
   heightPercentageToDP as hp,
@@ -24,12 +23,9 @@ type Props = {
 };
 
 export default function BodyPartCard({ item, index }: Props) {
-  const router = useRouter();
-
   return (
-    <View>
+    <Link href={`/exercises/${item.name}`} asChild>
       <TouchableOpacity
-        onPress={() => router.push(`/exercises?bodyPart=${item.name}`)}
         style={{ width: wp(44), height: wp(52) }}
         className='flex justify-end p-4 mb-4'
       >
@@ -59,6 +55,6 @@ export default function BodyPartCard({ item, index }: Props) {
           {item?.name}
         </Text>
       </TouchableOpacity>
-    </View>
+    </Link>
   );
 }
