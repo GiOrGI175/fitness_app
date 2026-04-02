@@ -1,5 +1,6 @@
+import { fetchExercisesByBodyParts } from '@/api/exercisesDB';
 import { router, useLocalSearchParams } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
@@ -20,6 +21,19 @@ export default function exercises() {
   const { id } = useLocalSearchParams();
 
   const key = id as string;
+
+  useEffect(() => {
+    if (!id) return;
+
+    const bodyPart = Array.isArray(id) ? id[0] : id;
+
+    getExercises(bodyPart);
+  }, [id]);
+
+  const getExercises = async (bodyPart: string) => {
+    let data = await fetchExercisesByBodyParts(bodyPart);
+    console.log('get data:', data);
+  };
 
   return (
     <View className='mt-20'>

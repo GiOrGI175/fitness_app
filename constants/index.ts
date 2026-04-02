@@ -48,3 +48,5 @@ export const bodyParts = [
     image: require('../assets/images/waist.jpg'),
   },
 ];
+
+export const rapIdApiKey = '7a3f5fc763msh559ecd57916047ap190b3bjsn87e0b534b5a3';
