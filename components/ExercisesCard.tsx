@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -12,30 +13,38 @@ type Props = {
   index: number;
 };
 
-export default function ExercisesCard({ item }: Props) {
+export default function ExercisesCard({ item, index }: Props) {
   const router = useRouter();
 
   return (
-    <TouchableOpacity
-      onPress={() =>
-        router.push({
-          pathname: '/exercises/exercisesDetails/details',
-          params: { data: JSON.stringify(item) },
-        })
-      }
-      className='py-3'
+    <Animated.View
+      entering={FadeInDown.duration(400)
+        .delay(index * 200)
+        .springify()}
     >
-      <View
-        className='bg-neutral-200 shadow rounded-[25px] items-center justify-center'
-        style={{ width: wp(44), height: wp(44) }}
+      <TouchableOpacity
+        onPress={() =>
+          router.push({
+            pathname: '/exercises/exercisesDetails/details',
+            params: { data: JSON.stringify(item) },
+          })
+        }
+        className='py-3'
       >
-        <Text
-          style={{ fontSize: hp(1.7) }}
-          className='text-neutral-700 font-semibold tracking-wide text-center px-3'
+        <View
+          className='bg-neutral-200 shadow rounded-[25px] items-center justify-center'
+          style={{ width: wp(44), height: wp(44) }}
         >
-          {item?.name?.length > 20 ? item.name.slice(0, 20) + '...' : item.name}
-        </Text>
-      </View>
-    </TouchableOpacity>
+          <Text
+            style={{ fontSize: hp(1.7) }}
+            className='text-neutral-700 font-semibold tracking-wide text-center px-3'
+          >
+            {item?.name?.length > 20
+              ? item.name.slice(0, 20) + '...'
+              : item.name}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </Animated.View>
   );
 }

@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import {
   Image,
@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -23,15 +24,21 @@ type Props = {
 };
 
 export default function BodyPartCard({ item, index }: Props) {
+  const router = useRouter();
+
   return (
-    <Link
-      href={{
-        pathname: '/exercises/[id]',
-        params: { id: item.name },
-      }}
-      asChild
+    <Animated.View
+      entering={FadeInDown.duration(400)
+        .delay(index * 200)
+        .springify()}
     >
       <TouchableOpacity
+        onPress={() =>
+          router.push({
+            pathname: '/exercises/[id]',
+            params: { id: item.name },
+          })
+        }
         style={{ width: wp(44), height: wp(52) }}
         className='flex justify-end p-4 mb-4'
       >
@@ -61,6 +68,6 @@ export default function BodyPartCard({ item, index }: Props) {
           {item?.name}
         </Text>
       </TouchableOpacity>
-    </Link>
+    </Animated.View>
   );
 }
